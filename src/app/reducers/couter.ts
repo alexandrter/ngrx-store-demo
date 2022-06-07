@@ -1,15 +1,17 @@
-import {createAction, createFeatureSelector, createReducer, createSelector, on} from "@ngrx/store";
+import {createAction, createFeatureSelector, createReducer, createSelector, on, props} from "@ngrx/store";
 
 
 export const increaseAction = createAction("[COUNTER] increase");
 export const clearAction = createAction("[COUNTER] clear");
+export const updateTimestampAction = createAction("[COUNTER] update timestamp", props<{newTimestamp: number}>())
 
 export interface CounterState {
   count: number;
+  updateAt?: number
 }
 
 const initialState: CounterState = {
-  count: 0
+  count: 0,
 }
 
 export const counterReducer = createReducer(
@@ -21,9 +23,14 @@ export const counterReducer = createReducer(
   on(clearAction, state => ({
     ...state,
     count: 0,
+  })),
+  on(updateTimestampAction, (state, action) => ({
+    ...state,
+    updateAt: action.newTimestamp,
   }))
 );
 
 const featureSelector = createFeatureSelector<CounterState>('counter')
 
 export const countSelector = createSelector(featureSelector, state => state.count);
+export const updateAtSelector = createSelector(featureSelector, state => state.updateAt);

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Store} from "@ngrx/store";
-import {clearAction, countSelector, increaseAction} from "./reducers/couter";
+import {clearAction, countSelector, increaseAction, updateAtSelector} from "./reducers/couter";
 
 @Component({
   selector: 'app-root',
@@ -9,19 +9,17 @@ import {clearAction, countSelector, increaseAction} from "./reducers/couter";
 export class AppComponent {
 
   counter$ = this.store.select(countSelector);
-  updatedAt?: number;
+  updatedAt$ = this.store.select(updateAtSelector);
 
   constructor(private store: Store) {
   }
 
   increase() {
     this.store.dispatch(increaseAction());
-    this.updatedAt = Date.now();
   }
 
   clear() {
     this.store.dispatch(clearAction());
-    this.updatedAt = Date.now();
   }
 
 }
