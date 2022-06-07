@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Store} from "@ngrx/store";
-import {clearAction, countSelector, increaseAction, updateAtSelector} from "./reducers/couter";
+import {clearAction, countSelector, increaseAction, randomNumberRequested, updateAtSelector} from "./reducers/couter";
 
 @Component({
   selector: 'app-root',
@@ -22,4 +22,7 @@ export class AppComponent {
     this.store.dispatch(clearAction());
   }
 
+  randomize() {
+    this.store.dispatch(randomNumberRequested())
+  }
 }

@@ -1,5 +1,6 @@
 <button (click)="increase()">Increase</button>
 <button (click)="clear()">Clear</button>
+<button (click)="randomize()">Randomize</button>
 
 <p>Counter = {{counter$ | async}}</p>
 <p *ngIf="updatedAt$ | async as updatedAt">Updated at: {{updatedAt | date:"yyyy-MM-dd HH:mm:ss.SSS"}}</p>

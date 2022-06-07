@@ -3,7 +3,10 @@ import {createAction, createFeatureSelector, createReducer, createSelector, on, 
 
 export const increaseAction = createAction("[COUNTER] increase");
 export const clearAction = createAction("[COUNTER] clear");
-export const updateTimestampAction = createAction("[COUNTER] update timestamp", props<{newTimestamp: number}>())
+export const updateTimestampAction = createAction("[COUNTER] update timestamp", props<{newTimestamp: number}>());
+
+export const randomNumberRequested = createAction("[COUNTER] random number requested");
+export const randomNumberLoaded = createAction("[COUNTER] random number loaded", props<{ newCount: number }>());
 
 export interface CounterState {
   count: number;
@@ -27,7 +30,11 @@ export const counterReducer = createReducer(
   on(updateTimestampAction, (state, action) => ({
     ...state,
     updateAt: action.newTimestamp,
-  }))
+  })),
+  on(randomNumberLoaded, (state, action) => ({
+    ...state,
+    count: action.newCount,
+  })),
 );
 
 const featureSelector = createFeatureSelector<CounterState>('counter')
